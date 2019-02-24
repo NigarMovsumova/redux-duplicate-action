@@ -1,4 +1,4 @@
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {Provider} from 'react-redux';
@@ -16,9 +16,9 @@ const duplicateActionMiddleWare = store=> next=> action=>{
     }
 }
 
+const composeEnhancers= window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__||compose;
 
-
-const store = createStore(reducers, applyMiddleware(thunk, duplicateActionMiddleWare));
+const store = createStore(reducers, composeEnhancers( applyMiddleware(thunk, duplicateActionMiddleWare)));
 
 ReactDOM.render(
     <Provider store={store}>
